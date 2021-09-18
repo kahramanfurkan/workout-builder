@@ -1,0 +1,138 @@
+nav{
+  background-color: black;
+}
+
+.logo-area a:link{
+color: white;
+text-decoration: none;
+}
+
+.logo-area a:visited{
+  color: white;
+}
+
+.logo-area a:hover{
+  color: #e7d844;
+}
+.Nav-logo {
+    height: 5vh;
+    pointer-events: none;
+
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .Nav-logo {
+      animation: Nav-logo-spin infinite 15s linear;
+    }
+  }
+
+  @keyframes Nav-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  #NavLogoText {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      color: white;
+      font-style: italic;
+      font-size: large;
+      
+  }
+  .motto-area{
+    width: 65vh;
+  }
+ 
+.motto-area p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #e7d844;
+    font-size:x-large;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .17em solid #e7d844;
+    animation: typing 8s steps(36, end), blinking-cursor 8s step-end infinite;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes typing {
+    from {
+      width: 0
+    }
+    to {
+      width: 100%
+    }
+  }
+  
+  @keyframes blinking-cursor {
+    from,
+    to {
+      border-color: transparent
+    }
+    50% {
+      border-color: white;
+    }
+  }
+
+
+#build-exercise {
+    animation: 2s ease 0s infinite beat;
+    animation: 2s ease 0s infinite pulse;
+    
+}
+
+@keyframes beat {
+    0%, 50%, 100% { transform: scale(1, 1); }
+    30%, 80% { transform: scale(0.92, 0.95); }
+    
+  }
+  
+  @keyframes pulse {
+    0%, 50%, 100% {  color: white; }
+    30%, 80% { background-color: red; }
+  }
+
+  .links-area{
+      display: flex;
+      flex-wrap: nowrap;
+  }
+
+  .links-area a:link{
+    color: white;
+  }
+
+  .links-area a:visited {
+    color: white;
+  }
+  
+  .links-area a:hover {
+    background-color:#e7d844 ;
+  }
+  
+  .links-area a:active {
+    background-color: #e7d844;
+  } 
+
+
+  @media only screen and (max-width: 1024px) {
+     
+.navbar{
+  display: flex;
+}
+.logo-area{
+  margin: auto;
+}
+.links-area{
+  margin: auto;
+}
+
+.motto-area{
+  display: none;
+}
+
+  }
+
+ 
