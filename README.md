@@ -33,6 +33,6 @@ Workout Builder, kendi antrenmanlarınızı oluşturmanıza olanak sağlayan bir
 
 > 1. Oturum açma/Authentication
 > 2. Uygulama içi geliştirmeler/In-app developments
-> 3.Dil desteği/Language support (eng)
+> 3. Dil desteği/Language support (eng)
 
 
