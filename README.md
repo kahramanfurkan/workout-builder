@@ -31,7 +31,8 @@ Workout Builder, kendi antrenmanlarınızı oluşturmanıza olanak sağlayan bir
 
 ## Neler Gelecek/Future Updates:
 
-> 1. Oturum açma/Login
+> 1. Oturum açma/Authentication
 > 2. Uygulama içi geliştirmeler/In-app developments
+> 3.Dil desteği/Language support (eng)
 
 
