@@ -1,22 +1,29 @@
 import React from 'react'
 import download from 'downloadjs';
+import i18n from '../i18n';
 
 class Downloadable extends React.Component {
 
 
     componentDidMount() {
+ 
+        if(this.props.exercises.length !== 0) {
+            this.props.showToastDownload()
+            const outerHTML = document.querySelector('.download-table').outerHTML;
+    
+            setTimeout(() => {
+                download(new Blob([
+                    "<html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
+                    , outerHTML,
+                    "</body></html>"]),
+                    "myworkout.html",
+                    "text/html");
+            }, 1500);
+        }else {
+            this.props.showToastNoExercise()
+        }
 
-        this.props.showToastDownload()
-        const outerHTML = document.querySelector('.download-table').outerHTML;
-
-        setTimeout(() => {
-            download(new Blob([
-                "<html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
-                , outerHTML,
-                "</body></html>"]),
-                "myworkout.html",
-                "text/html");
-        }, 1500);
+     
 
     }
 
@@ -25,11 +32,11 @@ class Downloadable extends React.Component {
             <div className="download-table" style={{ padding: "0", margin: "0", color: "black" }} >
                 <table style={{ width: "100%", textAlign: "center", borderCollapse: "collapse" }}>
                     <thead style={{ backgroundColor: "tomato" }}>
-                        <th>Bölge</th>
-                        <th>İsim</th>
-                        <th>Set</th>
-                        <th>Tekrar</th>
-                        <th>Video</th>
+                        <th>{i18n.t("downloadablearea")}</th>
+                        <th>{i18n.t("downloadablename")}</th>
+                        <th>{i18n.t("downloadableset")}</th>
+                        <th>{i18n.t("downloadablerepeat")}</th>
+                        <th>{i18n.t("downloadablevideo")}</th>
                     </thead>
                     <tbody>
                         {

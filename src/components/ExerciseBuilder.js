@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import i18n from '../i18n';
 Modal.setAppElement('#root');
 
 class ExerciseBuilder extends React.Component {
@@ -49,26 +50,26 @@ document.querySelector('.footer').style.display="none";
   render() {
     return (
       <div>
-        <h4 className="text-center">Egzersiz Oluştur</h4>
+        <h4 className="text-center">{i18n.t("builderheader")}</h4>
         <form onSubmit={this.onSubmitHandler} >
           <div className="form-group">
-            <label htmlFor="area">Çalışacağınız hareket hangi bölge için ?</label>
+            <label htmlFor="area">{i18n.t("builderarea")}</label>
             <select className="form-control" id="area" onChange={this.onChangeHandler}>
-              <option>Kol</option>
-              <option>Omuz</option>
-              <option>Göğüs</option>
-              <option>Sırt</option>
-              <option>Bacak</option>
-              <option>Karın</option>
+              <option>{i18n.t("arm")}</option>
+              <option>{i18n.t("shoulder")}</option>
+              <option>{i18n.t("chest")}</option>
+              <option>{i18n.t("back")}</option>
+              <option>{i18n.t("leg")}</option>
+              <option>{i18n.t("abdominal")}</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Çalışacağınız hareketin ismi nedir?</label>
-            <input type="text" className="form-control" id="name" placeholder="örn: Bench Press" onChange={this.onChangeHandler} />
+            <label htmlFor="name">{i18n.t("buildername")}</label>
+            <input type="text" className="form-control" id="name" placeholder={i18n.t("example")+" Bench Press"} onChange={this.onChangeHandler} />
           </div>
           <div className="form-group">
-            <label htmlFor="set">Hareketi kaç set çalışacaksınız ?</label>
+            <label htmlFor="set">{i18n.t("builderset")}</label>
             <select className="form-control" id="set" onChange={this.onChangeHandler}>
               <option>1</option>
               <option>2</option>
@@ -81,17 +82,17 @@ document.querySelector('.footer').style.display="none";
           </div>
 
 
-          <label htmlFor="repeat">Hareketi kaç tekrar yapacaksınız? </label> <br />
+          <label htmlFor="repeat">{i18n.t("builderrepeat")} </label> <br />
           <input type="number" className="form-control" id="repeat" onChange={this.onChangeHandler} />
 
 
 
           <div className="form-group">
-            <label htmlFor="link">Çalışacağınız hareketin YouTube video linki :</label>
-            <input type="text" placeholder="örn: https://www.youtube.com/watch?v=y070Cm71u50" className="form-control" id="link" onChange={this.onChangeHandler} />
+            <label htmlFor="link">{i18n.t("buildervideo")}</label>
+            <input type="text" placeholder={i18n.t("example")+" https://www.youtube.com/watch?v=y070Cm71u50"} className="form-control" id="link" onChange={this.onChangeHandler} />
           </div>
           <div className="text-center ">
-            <button type="submit" className="btn btn-primary">Egzersizlerime Ekle</button>
+            <button type="submit" className="btn btn-primary">{i18n.t("builderaddbutton")}</button>
           </div>
 
         </form>
@@ -116,8 +117,8 @@ document.querySelector('.footer').style.display="none";
               className="bi bi-x-square-fill float-right"
               onClick={() => this.setState({ isModalErrorOpen: false })}
             ></i>
-            <p>Gerekli alanları doldurmalısınız!</p>
-            <p>Not: Video linki eklemek zorunlu değildir.</p>
+            <p>{i18n.t("modalerrorcontent")}</p>
+            <p>{i18n.t("modalerrorcontent2")}</p>
           </div>
         </Modal>
 

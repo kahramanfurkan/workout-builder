@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import i18n from '../i18n';
 
 class Sidebar extends React.Component {
   render() {
@@ -9,8 +10,8 @@ class Sidebar extends React.Component {
         <thead className="thead">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Egzersiz adı</th>
-            <th scope="col">Bölge</th>
+            <th scope="col">{i18n.t("sidebartheadexercisename")}</th>
+            <th scope="col">{i18n.t("sidebartheadexercisearea")}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,9 +37,9 @@ class Sidebar extends React.Component {
               <tr>
 
                 <td><i className="bi bi-emoji-frown" style={{ fontSize: "1rem" }}></i></td>
-                <td>Henüz egzersiz eklememiş gibi görünüyorsunuz.</td>
+                <td>{i18n.t("sidebarwarn")}</td>
                 <td>
-                  <Link to="/builder"><span className="badge badge-success">Hemen ekle</span></Link>
+                  <Link to="/builder"><span className="badge badge-success">{i18n.t("sidebaraddnow")}</span></Link>
                 </td>
 
               </tr>

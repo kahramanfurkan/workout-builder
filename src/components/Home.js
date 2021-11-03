@@ -1,5 +1,7 @@
 import React from 'react';
-import downloadedView from '../img/downloaded-view.jpg';
+import downloadedtr from '../img/downloadable-tr.jpg';
+import downloadeden from '../img/downloadable-en.jpg';
+import i18n from '../i18n';
 
 
 class Home extends React.Component {
@@ -14,7 +16,7 @@ class Home extends React.Component {
                     </div>
 
                     <div className="col-10 mid text-center">
-                        <h3 style={{ color: "#e7d844", fontFamily: "fantasy" }}>Nasıl kullanılır?</h3>
+                        <h3 style={{ color: "#e7d844", fontFamily: "fantasy" }}>{i18n.t("slide1header")}</h3>
                         <div id="carouselSlides" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner text-center">
 
@@ -26,13 +28,9 @@ class Home extends React.Component {
                                         allowFullScreen={true}
                                     ></iframe>
 
-                                    <h5 className="iframe-header">Nasıl egzersiz oluştururum?</h5>
+                                    <h5 className="iframe-header">{i18n.t("slide1subheader")}</h5>
                                     <p className="iframe-detail">
-                                        "Egzersiz Oluştur" butonuna tıklayıp,hemen oluşturmaya başlayabilirsin.
-                                        Gerekli alanları doldurduktan sonra "Egzersizlerime Ekle" butonuna basman yeterli.Eklediğin egzersiz,
-                                        "Egzersiz Listem" bölümünde görüntülenir.Detaylar için videoyu izle! "Egzersiz listem" bölümünün nasıl kullanıldığını öğrenmek için
-                                        yana kaydır...
-
+                                    {i18n.t("slide1content")}
                                         "</p>
                                 </div>
 
@@ -44,13 +42,10 @@ class Home extends React.Component {
                                         allowFullScreen={true}
                                     ></iframe>
 
-                                    <h5 className="iframe-header">"Egzersiz Listem" nasıl kullanılır?</h5>
+                                    <h5 className="iframe-header">{i18n.t("slide2subheader")}</h5>
                                     <p className="iframe-detail">
-                                        Eklediğin tüm egzersizlerin,"Egzersiz Listem" bölümünde görüntülenir.Bu bölümde en sağdaki 
-                                        "görüntüle <i className="bi bi-eye"/>,düzenle <i className="bi bi-pencil-square"/>  ve sil <i className="bi bi-trash" />"
-                                        butonlarını kullanarak dilediğin gibi düzenleme yapabilirsin.En üstte bulunan "Tümünü sil" butonunu kullanarak listeni
-                                        baştan yaratmaya başlayabilirsin. Listen hazır mı ? Listeni nasıl indirip dilediğin yerde kullanabileceğini öğrenmek için
-                                        yana kaydır...
+                                    {i18n.t("slide2content1")} {i18n.t("slide2content2")} <i className="bi bi-eye"/>{i18n.t("slide2content3")} <i className="bi bi-pencil-square"/> {i18n.t("slide2content4")} <i className="bi bi-trash" />"
+                                    {i18n.t("slide2content5")} 
                                     </p>
 
                                 </div>
@@ -63,14 +58,12 @@ class Home extends React.Component {
                                         allowFullScreen={true}
                                     ></iframe>
 
-                                    <h5 className="iframe-header">Listemi nasıl indiririm ?</h5>
-                                    <p className="iframe-detail">Tüm egzersizlerini listene ekledin mi ? O halde hazır görünüyorsun.
-                                    Hemen "Egzersiz Listem" sayfasına gidip sağ üst köşede bulunan "indir <i className="bi bi-download"/>"
-                                    butonuna tıklayıp egzersiz listenin ".html" uzantılı bir kopyasını indirebilirsin!
-                                    İndirdiğin dosyayı istediğin cihazda açabilirsin. İndirdiğin dosya aşağıdaki gibi görünecek :
+                                    <h5 className="iframe-header">{i18n.t("slide3subheader")}</h5>
+                                    <p className="iframe-detail">{i18n.t("slide3content1")} <i className="bi bi-download"/>"
+                                    {i18n.t("slide3content2")}
 
                                     </p>
-                                    <img src={downloadedView}/>
+                                    <img src={this.props.lang === "tr" ? downloadedtr : downloadeden} alt="downloadedView"/>
 
                                 </div>
 

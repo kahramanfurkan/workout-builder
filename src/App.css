@@ -89,6 +89,15 @@ height:360px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.content table th {
+  cursor: pointer;
+}
+
+.content .functionals button{
+  margin-right: 3%;
+  color: white;
+}
+
 
 .footer{
     background-color: black;
@@ -109,6 +118,7 @@ height:360px;
 
 
 @media only screen and (max-width: 768px) {
+ 
   body{
       background-image: url('./img/bg-mobile.jpg');
       background-size: cover;
@@ -123,11 +133,15 @@ height:360px;
     width: 95vw;
     opacity: 1;
     padding-bottom: 20%;
+    
 }
+
+
 .content iframe{
   width: 280px;
   height: 144px;
   }
+
 .content .carousel img{
   width: 70vw;
 }

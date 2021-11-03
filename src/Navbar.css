@@ -114,10 +114,16 @@ text-decoration: none;
   
   .links-area a:active {
     background-color: #e7d844;
+  }
+  .language-switch-area img{
+  max-width: 30px;
+  cursor: pointer;
+  margin: 0 3px;
   } 
+  
 
-
-  @media only screen and (max-width: 1024px) {
+  
+  @media only screen and (max-width: 768px) {
      
 .navbar{
   display: flex;
@@ -127,10 +133,23 @@ text-decoration: none;
 }
 .links-area{
   margin: auto;
+  font-size: xx-small;
 }
-
+.links-area a:nth-child(1){
+  display: none;
+}
 .motto-area{
   display: none;
+}
+#modalflagen , #modalflagtr {
+  width: 256px;
+}
+.language-switch-area{
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 5%;
+  margin-top: 3%;
 }
 
   }

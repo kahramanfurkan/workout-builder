@@ -10,8 +10,13 @@ import ExerciseBuilder from "./components/ExerciseBuilder";
 import ExerciseList from "./components/ExerciseList";
 import Footer from "./components/Footer";
 import Downloadable from "./components/Downloadable";
-
-
+import Register from './components/Register';
+import Login from './components/Login';
+import auth from "./Firebase";
+import { db } from "./Firebase";
+import {onAuthStateChanged } from "firebase/auth";
+import { ref, set,child, get } from "firebase/database";
+import i18n from "./i18n";
 
 
 class App extends React.Component {
@@ -19,7 +24,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       isModalLoaderOpen: false,
-      exercises: []
+      exercises: [],
+      currentUserId:null,
+      currentUserDisplayName:"",
+      currentUserEmail:"",
+      saveButtonDisplay:"none",
+      lang:"tr",
     }
   }
 
@@ -30,8 +40,40 @@ class App extends React.Component {
       this.setState({ isModalLoaderOpen: false })
     }, 1500);
 
-  }
+    onAuthStateChanged(auth,(user)=>{
+    if(user){
+      document.querySelector('#login-button').style.display="none";
+      document.querySelector('#register-button').style.display="none";
+      //document.querySelector('#user-profile').innerHTML=user.displayName;
+      this.setState({currentUserDisplayName:user.displayName});
+      this.setState({currentUserEmail:user.email});
+      this.setState({currentUserId:user.uid});
+      this.setState({saveButtonDisplay:"table-cell"});
 
+      //firebase database reference
+      const dbRef = ref(db);
+
+      get(child(dbRef,`users/${this.state.currentUserId}/exercises`))
+      .then((snapshot)=>{
+        if(snapshot.exists()){
+          console.log(snapshot.val())
+          this.setState({exercises:snapshot.val()})
+        }else {
+          console.log("NoData");
+        }
+      }).catch((error)=>{
+        console.log(error.message);
+      })
+      
+      
+    }else{
+      document.querySelector('#logout-button').style.display="none";
+      document.querySelector('#user-profile').style.display="none";
+    }
+    })
+   
+  }
+  
   setExercises = (data) => {
     this.setState({
       exercises: [...this.state.exercises, data]
@@ -88,6 +130,41 @@ class App extends React.Component {
     }, 2500);
   }
 
+  showToastResetPassword = () => {
+    document.querySelector('#toastResetPassword').style.display = "inline-block";
+
+    setTimeout(() => {
+      document.querySelector('#toastResetPassword').style.display = "none";
+    }, 2500);
+  }
+
+  showToastChangePassword = () => {
+    document.querySelector('#toastChangePassword').style.display = "inline-block";
+
+    setTimeout(() => {
+      document.querySelector('#toastChangePassword').style.display = "none";
+    }, 2500);
+  }
+
+  showToastNoExercise = () => {
+    document.querySelector('#toastNoExercise').style.display = "inline-block";
+
+    setTimeout(() => {
+      document.querySelector('#toastNoExercise').style.display = "none";
+    }, 2500);
+  }
+
+  saveToFirebase = () =>{
+      set(ref(db,'users/'+this.state.currentUserId+'/exercises'),this.state.exercises);
+      this.showToastSave();
+  }
+
+  languageChanger = (lang) => {
+    let newLang =lang;
+    this.setState({lang : newLang});
+    i18n.changeLanguage(newLang);
+}
+
   render() {
     return (
       <BrowserRouter>
@@ -96,17 +173,32 @@ class App extends React.Component {
 
             <span id="toastDelete" className="text-center bg-danger" 
             style={{ width: "150px", height: "60px", display: "none", padding: "1% 1% ",color:"white" }}>
-              Silindi <i className="bi bi-x float-right"></i>
+              {i18n.t("toastdeleted")} <i className="bi bi-x float-right"></i>
             </span>
 
             <span id="toastSave" className="text-center bg-success" 
             style={{ width: "150px", height: "60px", display: "none", padding: "1% 1%",color:"white" }}>
-              Kaydedildi <i className="bi bi-x float-right"></i>
+              {i18n.t("toastsaved")} <i className="bi bi-x float-right"></i>
             </span>
 
             <span id="toastDownload" className="text-center bg-success" 
             style={{ width: "100vw", height: "60px", display: "none", padding: "1% 1%",color:"white" }}>
-              {this.state.exercises.length} adet egzersiz indirilecek <i className="bi bi-x float-right"></i>
+              {this.state.exercises.length} {i18n.t("toastdownload")} <i className="bi bi-x float-right"></i>
+            </span>
+
+            <span id="toastNoExercise" className="text-center bg-danger" 
+            style={{ width: "100vw", height: "60px", display: "none", padding: "1% 1%",color:"white" }}>
+              {i18n.t("toastnoexercise")} <i className="bi bi-x float-right"></i>
+            </span>
+
+            <span id="toastResetPassword" className="text-center bg-success" 
+            style={{ width: "100vw", height: "60px", display: "none", padding: "1% 1%",color:"white" }}>
+             {i18n.t("toastresetpassword")}<i className="bi bi-x float-right"></i>
+            </span>
+
+            <span id="toastChangePassword" className="text-center bg-success" 
+            style={{ width: "100vw", height: "60px", display: "none", padding: "1% 1%",color:"white" }}>
+             {i18n.t("toastchangepassword")}<i className="bi bi-x float-right"></i>
             </span>
 
           </div>
@@ -140,6 +232,10 @@ class App extends React.Component {
           <div className="row navigation">
             <Navbar
               exercises={this.state.exercises}
+              currentUserDisplayName={this.state.currentUserDisplayName}
+              currentUserEmail={this.state.currentUserEmail}
+              showToastChangePassword={this.showToastChangePassword}
+              languageChanger={this.languageChanger}
             />
 
           </div>
@@ -147,7 +243,7 @@ class App extends React.Component {
           <div className="row main">
 
             <div className="col-2 sidebar">
-              <h5 className="text-center"><span className="badge badge-secondary"><Link to="/list">Tümünü gör ve düzenle({this.state.exercises.length})</Link> </span></h5>
+              <h5 className="text-center"><span className="badge badge-secondary"><Link to="/list">{i18n.t("seeall")}({this.state.exercises.length})</Link> </span></h5>
               <Sidebar
                 exercises={this.state.exercises}
               />
@@ -156,7 +252,9 @@ class App extends React.Component {
             <div className="col-9  content bg-dark ">
 
               <Route exact path="/">
-                <Home />
+                <Home
+                lang={this.state.lang}
+                />
               </Route>
 
               <Route path="/builder">
@@ -167,27 +265,40 @@ class App extends React.Component {
               </Route>
 
               <Route path="/list">
-
+                
                 <ExerciseList
                   exercises={this.state.exercises}
                   deleteExercise={this.deleteExercise}
                   emptyExercises={this.emptyExercises}
                   setExercises={this.setExercises}
                   download={this.download}
+                  saveButtonDisplay={this.state.saveButtonDisplay}
+                  saveToFirebase={this.saveToFirebase}
 
                 />
 
                 <div className="go-top-arrow text-center " onClick={this.goTop} style={{ color: "yellow", cursor: "pointer" }}>
                   <i className="bi bi-arrow-up"></i>
-                  <p>Başa dön</p>
+                  <p>{i18n.t("gotop")}</p>
                 </div>
-
               </Route>
 
               <Route path="/downloadable">
                 <Downloadable
                 exercises={this.state.exercises}
                 showToastDownload={this.showToastDownload}
+                showToastNoExercise={this.showToastNoExercise}
+                />
+                </Route>
+
+                <Route path="/register">
+                <Register
+                />
+                </Route>
+
+                <Route path="/login">
+                <Login
+                showToastResetPassword={this.showToastResetPassword}
                 />
                 </Route>
 
