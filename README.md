@@ -30,6 +30,7 @@ Workout Builder, kendi antrenmanlarınızı oluşturmanıza olanak sağlayan bir
 * JavaScript
 * CSS
 * Bootstrap
+* Firebase
 * NPM
     - downloadJS
     - react-joyride
