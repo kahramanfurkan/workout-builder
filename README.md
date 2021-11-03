@@ -35,3 +35,8 @@ Workout Builder, kendi antrenmanlarınızı oluşturmanıza olanak sağlayan bir
     - react-joyride
     - react-modal
     - i18next
+
+## Sıradaki Güncellemeler/Upcoming Updates
+*Detaylı kas bölgesi seçimleri / Detailed muscle selection*
+
+*Otomatik doldurma ve egzersiz önerileri / Autofill and exercise suggestions*
